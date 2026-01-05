@@ -6,7 +6,7 @@
 #    By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/29 16:20:07 by omizin            #+#    #+#              #
-#    Updated: 2026/01/05 12:37:34 by omizin           ###   ########.fr        #
+#    Updated: 2026/01/05 15:27:23 by omizin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SRCS_DIR = srcs
 INCS_DIR = includes
 OBJS_DIR = objs
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++17 $(INCLUDE)
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++17 $(INCLUDE)
 
 INCLUDE = -I$(INCS_DIR)
 
