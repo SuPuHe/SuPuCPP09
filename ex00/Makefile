@@ -6,11 +6,11 @@
 #    By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/29 16:20:07 by omizin            #+#    #+#              #
-#    Updated: 2025/12/29 16:32:11 by omizin           ###   ########.fr        #
+#    Updated: 2026/01/05 12:37:34 by omizin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex00
+NAME = btc
 
 SRCS_DIR = srcs
 INCS_DIR = includes
