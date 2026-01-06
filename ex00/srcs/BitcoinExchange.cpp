@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/06 14:51:23 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/06 16:46:47 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy){
 }
 
 BitcoinExchange::~BitcoinExchange() {};
+
+static bool isLeapYear(int year)
+{
+	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
 
 static bool	isValidDate(const std::string &date){
 	if (date.length() != 10)
@@ -46,7 +51,16 @@ static bool	isValidDate(const std::string &date){
 		return false;
 	if (month < 1 || month > 12)
 		return false;
-	std::cout << year << " " << month << " " <<  day << std::endl;
+
+	int	allowed_day_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	if (month == 2 && isLeapYear(year))
+		allowed_day_in_month[1] = 29;
+
+	if (day < 1 || day > allowed_day_in_month[month - 1])
+		return false;
+
+	std::cout << year << " " << day << " " << allowed_day_in_month[month - 1] << std::endl;
+
 	return true;
 }
 
