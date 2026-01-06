@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:51 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/05 14:12:40 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/06 14:24:33 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #include <iostream>
 #include <map>
 #include <fstream>
+#include <sstream>
+#include <string>
 
 class BitcoinExchange{
 	private:
@@ -32,4 +34,6 @@ class BitcoinExchange{
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange &operator=(const BitcoinExchange &copy);
 		~BitcoinExchange();
+
+		void	loadDB();
 };
