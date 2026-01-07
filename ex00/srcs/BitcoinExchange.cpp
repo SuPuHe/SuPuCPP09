@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/07 15:05:18 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 16:12:28 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ static bool	isValidDate(const std::string &date){
 	return true;
 }
 
+void	skipSpaces(std::string &line){
+	line.erase(0, line.find_first_not_of(" \t"));
+	line.erase(line.find_last_not_of(" \t") + 1);
+}
+
 void	BitcoinExchange::processingInputFile(std::string filename){
 	std::ifstream file(filename);
 	if (!file.is_open())
@@ -74,7 +79,21 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 	if (line.compare("date | value") != 0)
 		throw::std::runtime_error(RED"Error: missing valid header." RESET);
 
-	//std::getline(file, line);
+	while(std::getline(file, line)){
+		std::stringstream ss(line);
+
+		//std::cout << "|" << line << "|" << std::endl;
+		std::string date;
+		std::string amount;
+		if (!std::getline(ss, date, '|') || !std::getline(ss, amount) || date.empty() || amount.empty()){
+			std::cerr << RED << "Error: bad input => " << date << " " << amount << RESET << std::endl;
+			continue;
+		}
+		skipSpaces(date);
+		skipSpaces(amount);
+		std::cout << "|" << date << "|" << amount << "|" << std::endl;
+
+	}
 }
 
 void	BitcoinExchange::loadDB(){
