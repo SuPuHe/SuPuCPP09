@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:31:10 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/06 14:47:36 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 13:08:48 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	}
 	if (file.peek() == std::ifstream::traits_type::eof()){
 		std::cerr << RED << "Error: empty file." << RESET << std::endl;
+		return 1;
 	}
 	BitcoinExchange a;
 

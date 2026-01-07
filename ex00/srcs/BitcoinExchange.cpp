@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/06 16:46:47 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 14:28:05 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ static bool	isValidDate(const std::string &date){
 	if (day < 1 || day > allowed_day_in_month[month - 1])
 		return false;
 
-	std::cout << year << " " << day << " " << allowed_day_in_month[month - 1] << std::endl;
-
 	return true;
 }
 
@@ -70,11 +68,14 @@ void	BitcoinExchange::loadDB(){
 		throw::std::runtime_error(RED"Error: could not open database file." RESET);
 
 	std::string line;
-	std::getline(file, line);
-
-	std::cout << line << std::endl;
-
 	int	line_count = 1;
+
+	if (!std::getline(file, line))
+		throw::std::runtime_error(RED"Error: file is empty." RESET);
+
+	if (line.compare("date,exchange_rate") != 0)
+		throw::std::runtime_error(RED"Error: missing valid header." RESET);
+
 	while(std::getline(file, line)){
 		line_count++;
 		std::stringstream ss(line);
@@ -85,10 +86,14 @@ void	BitcoinExchange::loadDB(){
 			continue;
 		}
 		if (!isValidDate(date)){
-			std::cout << RED << "Error: Incorrect data on line " << line_count << RESET << std::endl;
+			std::cout << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
 			continue;
 		}
-		//std::cout << line << std::endl;
+		try{
+			_db.insert(std::make_pair(date, std::stod(rateStr)));
+		} catch (...){
+			std::cout << RED << "Error: Failed to insert data to map on line " << line_count << RESET << std::endl;
+		}
 	}
 	file.close();
 }
