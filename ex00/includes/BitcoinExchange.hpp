@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:51 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/06 14:24:33 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 14:57:11 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ class BitcoinExchange{
 		~BitcoinExchange();
 
 		void	loadDB();
+		void	processingInputFile(std::string filename);
 };

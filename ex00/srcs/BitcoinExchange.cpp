@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/07 14:28:05 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 15:05:18 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ static bool	isValidDate(const std::string &date){
 	return true;
 }
 
+void	BitcoinExchange::processingInputFile(std::string filename){
+	std::ifstream file(filename);
+	if (!file.is_open())
+		throw::std::runtime_error(RED"Error: could not open file." RESET);
+
+	std::string line;
+	if (!std::getline(file, line))
+		throw::std::runtime_error(RED"Error: file is empty." RESET);
+
+	if (line.compare("date | value") != 0)
+		throw::std::runtime_error(RED"Error: missing valid header." RESET);
+
+	//std::getline(file, line);
+}
+
 void	BitcoinExchange::loadDB(){
 	std::ifstream file("data.csv");
 	if (!file.is_open())
@@ -82,17 +97,17 @@ void	BitcoinExchange::loadDB(){
 		std::string date;
 		std::string rateStr;
 		if (!std::getline(ss, date, ',') || !std::getline(ss, rateStr) || date.empty() || rateStr.empty()){
-			std::cout << RED << "Error: Corrupted data on line " << line_count << RESET << std::endl;
+			std::cerr << RED << "Error: Corrupted data on line " << line_count << RESET << std::endl;
 			continue;
 		}
 		if (!isValidDate(date)){
-			std::cout << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
+			std::cerr << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
 			continue;
 		}
 		try{
 			_db.insert(std::make_pair(date, std::stod(rateStr)));
 		} catch (...){
-			std::cout << RED << "Error: Failed to insert data to map on line " << line_count << RESET << std::endl;
+			std::cerr << RED << "Error: Failed to insert data to map on line " << line_count << RESET << std::endl;
 		}
 	}
 	file.close();

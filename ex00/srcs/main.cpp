@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:31:10 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/07 13:08:48 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/07 15:00:41 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,7 @@ int	main(int argc, char **argv)
 		std::cerr << RED << "Usage: ./btc input.txt" << RESET << std::endl;
 		return 1;
 	}
-	std::ifstream file(argv[1]);
-	if (!file.is_open()){
-		std::cerr << RED << "Error: could not open file." << RESET << std::endl;
-		return 1;
-	}
-	if (file.peek() == std::ifstream::traits_type::eof()){
-		std::cerr << RED << "Error: empty file." << RESET << std::endl;
-		return 1;
-	}
+
 	BitcoinExchange a;
 
 	try{
@@ -34,5 +26,15 @@ int	main(int argc, char **argv)
 	} catch (std::exception &e){
 		std::cout << e.what() << std::endl;
 	}
+
+	std::string filename = argv[1];
+
+	try{
+		a.processingInputFile(filename);
+	} catch (std::exception &e){
+		std::cout << e.what() << std::endl;
+	}
+
+
 	return 0;
 }
