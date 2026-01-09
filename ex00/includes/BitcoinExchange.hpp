@@ -37,4 +37,5 @@ class BitcoinExchange{
 
 		void	loadDB();
 		void	processingInputFile(std::string filename);
+		double	getRateForDate(std::string &date);
 };

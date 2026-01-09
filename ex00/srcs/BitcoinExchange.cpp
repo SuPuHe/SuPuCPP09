@@ -29,7 +29,7 @@ static bool isLeapYear(int year)
 	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-static bool	isValidDate(const std::string &date){
+static bool	isValidDate(const std::string &date, bool flag){
 	if (date.length() != 10)
 		return false;
 
@@ -47,7 +47,7 @@ static bool	isValidDate(const std::string &date){
 	int	month = std::atoi(date.substr(5, 2).c_str());
 	int	day = std::atoi(date.substr(8, 2).c_str());
 
-	if (year < 2009)
+	if (year < 2009 && flag)
 		return false;
 	if (month < 1 || month > 12)
 		return false;
@@ -67,6 +67,29 @@ void	skipSpaces(std::string &line){
 	line.erase(line.find_last_not_of(" \t") + 1);
 }
 
+bool isValidAmount(double amount){
+	if (amount < 0 || amount > 1000)
+		return false;
+	return true;
+}
+
+double	BitcoinExchange::getRateForDate(std::string &date){
+	std::map<std::string, double>::iterator it;
+
+	it = _db.find(date);
+	if (it != _db.end())
+		return it->second;
+
+	it = _db.lower_bound(date);
+	if (it == _db.begin())
+		throw std::runtime_error(RED"Error: no earlier date in db" RESET);
+
+	if (it == _db.end() || it->first != date)
+		--it;
+
+	return it->second;
+}
+
 void	BitcoinExchange::processingInputFile(std::string filename){
 	std::ifstream file(filename);
 	if (!file.is_open())
@@ -84,14 +107,33 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 
 		//std::cout << "|" << line << "|" << std::endl;
 		std::string date;
-		std::string amount;
-		if (!std::getline(ss, date, '|') || !std::getline(ss, amount) || date.empty() || amount.empty()){
-			std::cerr << RED << "Error: bad input => " << date << " " << amount << RESET << std::endl;
+		std::string amountSTR;
+		if (!std::getline(ss, date, '|') || !std::getline(ss, amountSTR) || date.empty() || amountSTR.empty()){
+			std::cerr << RED << "Error: bad input => " << date << " " << amountSTR << RESET << std::endl;
 			continue;
 		}
 		skipSpaces(date);
-		skipSpaces(amount);
-		std::cout << "|" << date << "|" << amount << "|" << std::endl;
+		skipSpaces(amountSTR);
+		double amount;
+
+		try{
+			amount = std::stod(amountSTR);
+		} catch (...){
+			std::cerr << RED << "Error: bad input => " << date << " " << amountSTR << RESET << std::endl;
+			continue;
+		}
+
+		if (!isValidDate(date, false) || !isValidAmount(amount)){
+			std::cerr << RED << "Error: bad input => " << date << " " << amount << RESET << std::endl;
+			continue;
+		}
+
+		try {
+			double rate = getRateForDate(date);
+			std::cout << date << "=> " << amount * rate << std::endl;
+		} catch (std::exception &e){
+			std::cout << e.what() << std::endl;
+		}
 
 	}
 }
@@ -119,7 +161,7 @@ void	BitcoinExchange::loadDB(){
 			std::cerr << RED << "Error: Corrupted data on line " << line_count << RESET << std::endl;
 			continue;
 		}
-		if (!isValidDate(date)){
+		if (!isValidDate(date, true)){
 			std::cerr << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
 			continue;
 		}
