@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:51 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/07 14:57:11 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/12 12:45:47 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,8 @@ class BitcoinExchange{
 		void	processingInputFile(std::string filename);
 		double	getRateForDate(std::string &date);
 };
+
+bool isValidAmount(double amount);
+void	skipSpaces(std::string &line);
+bool	isValidDate(const std::string &date, bool flag);
+bool isLeapYear(int year);

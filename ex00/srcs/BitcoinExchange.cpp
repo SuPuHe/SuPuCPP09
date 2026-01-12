@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/07 16:12:28 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/12 12:47:23 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,6 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy){
 }
 
 BitcoinExchange::~BitcoinExchange() {};
-
-static bool isLeapYear(int year)
-{
-	return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-}
-
-static bool	isValidDate(const std::string &date, bool flag){
-	if (date.length() != 10)
-		return false;
-
-	if (date[4] != '-' || date[7] != '-')
-		return false;
-
-	for (int i = 0; i < 10; i++){
-		if (i == 4 || i == 7)
-			continue;
-		if (!std::isdigit(date[i]))
-			return false;
-	}
-
-	int	year = std::atoi(date.substr(0, 4).c_str());
-	int	month = std::atoi(date.substr(5, 2).c_str());
-	int	day = std::atoi(date.substr(8, 2).c_str());
-
-	if (year < 2009 && flag)
-		return false;
-	if (month < 1 || month > 12)
-		return false;
-
-	int	allowed_day_in_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	if (month == 2 && isLeapYear(year))
-		allowed_day_in_month[1] = 29;
-
-	if (day < 1 || day > allowed_day_in_month[month - 1])
-		return false;
-
-	return true;
-}
-
-void	skipSpaces(std::string &line){
-	line.erase(0, line.find_first_not_of(" \t"));
-	line.erase(line.find_last_not_of(" \t") + 1);
-}
-
-bool isValidAmount(double amount){
-	if (amount < 0 || amount > 1000)
-		return false;
-	return true;
-}
 
 double	BitcoinExchange::getRateForDate(std::string &date){
 	std::map<std::string, double>::iterator it;
@@ -105,7 +56,6 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 	while(std::getline(file, line)){
 		std::stringstream ss(line);
 
-		//std::cout << "|" << line << "|" << std::endl;
 		std::string date;
 		std::string amountSTR;
 		if (!std::getline(ss, date, '|') || !std::getline(ss, amountSTR) || date.empty() || amountSTR.empty()){
@@ -130,7 +80,7 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 
 		try {
 			double rate = getRateForDate(date);
-			std::cout << date << "=> " << amount * rate << std::endl;
+			std::cout << date << " => " << amount << " = " << amount * rate << std::endl;
 		} catch (std::exception &e){
 			std::cout << e.what() << std::endl;
 		}
@@ -166,7 +116,12 @@ void	BitcoinExchange::loadDB(){
 			continue;
 		}
 		try{
-			_db.insert(std::make_pair(date, std::stod(rateStr)));
+			double rate = std::stod(rateStr);
+			if (rate < 0){
+				std::cerr << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
+				continue;
+			}
+			_db.insert(std::make_pair(date, rate));
 		} catch (...){
 			std::cerr << RED << "Error: Failed to insert data to map on line " << line_count << RESET << std::endl;
 		}

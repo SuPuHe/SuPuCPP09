@@ -6,7 +6,7 @@
 #    By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/29 16:20:07 by omizin            #+#    #+#              #
-#    Updated: 2026/01/06 13:39:00 by omizin           ###   ########.fr        #
+#    Updated: 2026/01/12 12:44:50 by omizin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++17 $(INCLUDE)
 
 INCLUDE = -I$(INCS_DIR)
 
-SRCS = main.cpp BitcoinExchange.cpp
+SRCS = main.cpp BitcoinExchange.cpp Utils.cpp
 
 RM = rm -rf
 
