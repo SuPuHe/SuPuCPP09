@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/12 12:47:23 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/13 15:11:06 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,19 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 		double amount;
 
 		try{
-			amount = std::stod(amountSTR);
+			size_t pos;
+			amount = std::stod(amountSTR, &pos);
+			if (pos != amountSTR.length()){
+				std::cerr << RED << "Error: bad input => " << date << " " << amountSTR << RESET << std::endl;
+				continue;
+			}
+
 		} catch (...){
 			std::cerr << RED << "Error: bad input => " << date << " " << amountSTR << RESET << std::endl;
 			continue;
 		}
-
 		if (!isValidDate(date, false) || !isValidAmount(amount)){
-			std::cerr << RED << "Error: bad input => " << date << " " << amount << RESET << std::endl;
+			std::cerr << RED << "Error: bad input => " << date << " " << amountSTR << RESET << std::endl;
 			continue;
 		}
 
@@ -116,8 +121,9 @@ void	BitcoinExchange::loadDB(){
 			continue;
 		}
 		try{
-			double rate = std::stod(rateStr);
-			if (rate < 0){
+			size_t pos;
+			double rate = std::stod(rateStr, &pos);
+			if (rate < 0 || pos != rateStr.length()){
 				std::cerr << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
 				continue;
 			}
