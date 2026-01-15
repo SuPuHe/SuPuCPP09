@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:31:10 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/12 12:39:35 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:28:00 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	main(int argc, char **argv)
 		return 1;
 	}
 
-	BitcoinExchange a;
+	std::map<std::string, double> db;
 	std::cout << GREEN << "\nCsv file output\n" << RESET << std::endl;
 	try{
-		a.loadDB();
+		loadDB(db);
 	} catch (std::exception &e){
 		std::cout << e.what() << std::endl;
 	}
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	std::string filename = argv[1];
 	std::cout << GREEN << "\nInput file output\n" << RESET << std::endl;
 	try{
-		a.processingInputFile(filename);
+		processingInputFile(filename, db);
 	} catch (std::exception &e){
 		std::cout << e.what() << std::endl;
 	}

@@ -6,42 +6,31 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/13 15:11:06 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:27:49 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange() {};
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy): _db(copy._db){};
-
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy){
-	if (this != &copy)
-		_db = copy._db;
-	return *this;
-}
-
-BitcoinExchange::~BitcoinExchange() {};
-
-double	BitcoinExchange::getRateForDate(std::string &date){
+double	getRateForDate(std::string &date, std::map<std::string, double> &db){
 	std::map<std::string, double>::iterator it;
 
-	it = _db.find(date);
-	if (it != _db.end())
+	it = db.find(date);
+	if (it != db.end())
 		return it->second;
 
-	it = _db.lower_bound(date);
-	if (it == _db.begin())
+	it = db.lower_bound(date);
+	if (it == db.begin())
 		throw std::runtime_error(RED"Error: no earlier date in db" RESET);
 
-	if (it == _db.end() || it->first != date)
+	if (it == db.end() || it->first != date)
 		--it;
 
 	return it->second;
 }
 
-void	BitcoinExchange::processingInputFile(std::string filename){
+void	processingInputFile(std::string filename, std::map<std::string, double> &db){
 	std::ifstream file(filename);
 	if (!file.is_open())
 		throw::std::runtime_error(RED"Error: could not open file." RESET);
@@ -84,7 +73,7 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 		}
 
 		try {
-			double rate = getRateForDate(date);
+			double rate = getRateForDate(date, db);
 			std::cout << date << " => " << amount << " = " << amount * rate << std::endl;
 		} catch (std::exception &e){
 			std::cout << e.what() << std::endl;
@@ -93,7 +82,7 @@ void	BitcoinExchange::processingInputFile(std::string filename){
 	}
 }
 
-void	BitcoinExchange::loadDB(){
+void loadDB(std::map<std::string, double> &db){
 	std::ifstream file("data.csv");
 	if (!file.is_open())
 		throw::std::runtime_error(RED"Error: could not open database file." RESET);
@@ -127,7 +116,7 @@ void	BitcoinExchange::loadDB(){
 				std::cerr << RED << "Error: Incorrect date on line " << line_count << RESET << std::endl;
 				continue;
 			}
-			_db.insert(std::make_pair(date, rate));
+			db.insert(std::make_pair(date, rate));
 		} catch (...){
 			std::cerr << RED << "Error: Failed to insert data to map on line " << line_count << RESET << std::endl;
 		}

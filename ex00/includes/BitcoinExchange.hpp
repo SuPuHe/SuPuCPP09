@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 16:30:51 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/12 12:45:47 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:27:44 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,10 @@
 #include <sstream>
 #include <string>
 
-class BitcoinExchange{
-	private:
-		std::map<std::string, double> _db;
-	public:
-		BitcoinExchange();
-		BitcoinExchange(const BitcoinExchange &copy);
-		BitcoinExchange &operator=(const BitcoinExchange &copy);
-		~BitcoinExchange();
-
-		void	loadDB();
-		void	processingInputFile(std::string filename);
-		double	getRateForDate(std::string &date);
-};
-
-bool isValidAmount(double amount);
+void	loadDB(std::map<std::string, double> &db);
+void	processingInputFile(std::string filename, std::map<std::string, double> &db);
+double	getRateForDate(std::string &date, std::map<std::string, double> &db);
+bool	isValidAmount(double amount);
 void	skipSpaces(std::string &line);
 bool	isValidDate(const std::string &date, bool flag);
-bool isLeapYear(int year);
+bool	isLeapYear(int year);
