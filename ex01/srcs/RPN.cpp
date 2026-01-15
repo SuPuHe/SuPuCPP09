@@ -6,13 +6,13 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:04:34 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/15 13:04:35 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:51:48 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-int RPN::calculate(std::string &line)
+int calculate(std::string &line)
 {
 	std::stack<int> stack;
 	int	a, b;

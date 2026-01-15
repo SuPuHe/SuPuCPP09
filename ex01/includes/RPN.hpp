@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:04:31 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/15 13:04:32 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:52:21 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,4 @@
 #include <stack>
 #include <exception>
 
-class RPN{
-	private:
-		RPN();
-		RPN(const RPN &copy);
-		RPN &operator=(const RPN &copy);
-		~RPN();
-	public:
-		static int	calculate(std::string &line);
-};
+int	calculate(std::string &line);

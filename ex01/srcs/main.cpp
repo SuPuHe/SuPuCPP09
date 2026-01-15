@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:04:33 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/15 13:04:34 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/15 13:51:38 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv){
 	}
 	try{
 		std::string input(argv[1]);
-		std::cout << RPN::calculate(input) << std::endl;
+		std::cout << calculate(input) << std::endl;
 	} catch (std::exception &e){
 		std::cerr << e.what() << std::endl;
 		return 1;
