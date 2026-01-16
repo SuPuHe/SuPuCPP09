@@ -26,6 +26,8 @@ int	main(int argc, char **argv){
 	}
 	std::cout << "Before:\t";
 	printVector(vector);
-	fordJonson(vector);
+	fordJohnson(vector);
+	std::cout << "After:\t";
+	printVector(vector);
 	return 0;
 }

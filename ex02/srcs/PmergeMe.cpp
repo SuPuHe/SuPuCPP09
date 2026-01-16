@@ -34,34 +34,52 @@ void	printVector(std::vector<int> &vector){
 	std::cout << std::endl;
 }
 
-void	fordJonson(std::vector<int> &vector){
+void	splitIntoPairs(std::vector<int> &vector, std::vector<int> &high_nums, std::vector<int> &low_nums, int &leftover){
 	if (vector.size() <= 1)
-		throw std::runtime_error(RED"Error: not enought numbers in vector" RESET);
-
-	std::vector<int> hight_nums;
-	std::vector<int> low_nums;
-	std::vector<int> leftover_nums;
-
-	for (size_t i = 0; i < vector.size(); i += 2){
-		if (vector[i] && vector[i + 1]){
-			if (vector[i] > vector[i + 1]){
-				hight_nums.push_back(vector[i]);
-				low_nums.push_back(vector[i + 1]);
-			}
-			else{
-				hight_nums.push_back(vector[i + 1]);
-				low_nums.push_back(vector[i]);
-			}
+		return;
+	for (size_t i = 0; i + 1 < vector.size(); i += 2){
+		if (vector[i] > vector[i + 1]){
+			high_nums.push_back(vector[i]);
+			low_nums.push_back(vector[i + 1]);
 		}
 		else{
-			leftover_nums.push_back(vector[i]);
+			high_nums.push_back(vector[i + 1]);
+			low_nums.push_back(vector[i]);
 		}
 	}
-	std::cout << "\n\nHight\n\n";
-	printVector(hight_nums);
-	std::cout << "\n\nlow_nums\n\n";
-	printVector(low_nums);
-	std::cout << "\n\nleftover_nums\n\n";
-	printVector(leftover_nums);
 
+	if (vector.size() % 2 != 0)
+		leftover = vector.back();
+}
+
+void	insertLowNums(std::vector<int> &insert_vector, std::vector<int> &low_nums){
+	(void)insert_vector;
+	(void)low_nums;
+}
+
+void binaryInsert(std::vector<int> &insert_vector, int leftover){
+	(void)insert_vector;
+	(void)leftover;
+}
+
+void	fordJohnson(std::vector<int> &vector){
+	if (vector.size() <= 1)
+		return;
+
+	std::vector<int> high_nums;
+	std::vector<int> low_nums;
+	int	leftover = -1;
+
+	splitIntoPairs(vector, high_nums, low_nums, leftover);
+
+	fordJohnson(high_nums);
+
+	std::vector<int> insert_vector;
+
+	insertLowNums(insert_vector, low_nums);
+
+	if (leftover != -1)
+		binaryInsert(insert_vector, leftover);
+
+	vector = insert_vector;
 }

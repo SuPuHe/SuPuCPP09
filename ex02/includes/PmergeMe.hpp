@@ -26,4 +26,4 @@
 
 void	addNumbersToVec(std::vector<int> &vector, char **numbers);
 void	printVector(std::vector<int> &vector);
-void	fordJonson(std::vector<int> &vector);
+void	fordJohnson(std::vector<int> &vector);
