@@ -58,8 +58,19 @@ void	insertLowNums(std::vector<int> &insert_vector, std::vector<int> &low_nums){
 }
 
 void binaryInsert(std::vector<int> &insert_vector, int leftover){
-	(void)insert_vector;
-	(void)leftover;
+	int	left = 0;
+	int	right = insert_vector.size();
+
+	while(left < right){
+		int	mid = (left + right) / 2;
+
+		if (leftover < insert_vector[mid])
+			right = mid;
+		else
+			left = mid + 1;
+	}
+
+	insert_vector.insert(insert_vector.begin() + left, leftover);
 }
 
 void	fordJohnson(std::vector<int> &vector){
