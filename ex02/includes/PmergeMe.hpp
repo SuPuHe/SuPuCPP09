@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:05:28 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/16 13:14:21 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/16 14:44:25 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@
 
 void	addNumbersToVec(std::vector<int> &vector, char **numbers);
 void	printVector(std::vector<int> &vector);
+void	fordJonson(std::vector<int> &vector);

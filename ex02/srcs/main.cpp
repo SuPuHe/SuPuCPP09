@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:05:59 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/16 13:17:44 by omizin           ###   ########.fr       */
+/*   Updated: 2026/01/16 14:43:39 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	main(int argc, char **argv){
 	}
 	std::cout << "Before:\t";
 	printVector(vector);
+	fordJonson(vector);
 	return 0;
 }
