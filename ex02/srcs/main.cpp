@@ -29,5 +29,6 @@ int	main(int argc, char **argv){
 	fordJohnson(vector);
 	std::cout << "After:\t";
 	printVector(vector);
+	std::cout << "Moves: " << comparison_count(true) << std::endl;
 	return 0;
 }

@@ -22,8 +22,12 @@
 
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <string>
+#include <algorithm>
 
 void	addNumbersToVec(std::vector<int> &vector, char **numbers);
 void	printVector(std::vector<int> &vector);
 void	fordJohnson(std::vector<int> &vector);
+
+size_t	comparison_count(bool helper);
