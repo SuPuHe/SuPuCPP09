@@ -38,7 +38,7 @@ void	printVector(std::vector<int> &vector){
 	for (size_t i = 0; i < vector.size(); i++){
 		std::cout << vector[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << RESET << std::endl;
 }
 
 size_t binarySearch(std::vector<int> &arr, int target, size_t end){

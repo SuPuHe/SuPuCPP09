@@ -25,6 +25,7 @@
 #include <deque>
 #include <string>
 #include <algorithm>
+#include <chrono>
 
 void	addNumbersToVec(std::vector<int> &vector, char **numbers);
 void	printVector(std::vector<int> &vector);
