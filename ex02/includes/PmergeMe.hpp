@@ -29,6 +29,10 @@
 
 void	addNumbersToVec(std::vector<int> &vector, char **numbers);
 void	printVector(std::vector<int> &vector);
-void	fordJohnson(std::vector<int> &vector);
+void	fordJohnsonVec(std::vector<int> &vector);
+
+void	addNumbersToDeq(std::deque<int> &deque, char **numbers);
+void	printDeque(std::deque<int> &deque);
+void	fordJohnsonDeq(std::deque<int>& arr);
 
 size_t	comparison_count(bool helper);

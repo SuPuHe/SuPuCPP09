@@ -21,7 +21,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++17 $(INCLUDE)
 
 INCLUDE = -I$(INCS_DIR)
 
-SRCS = main.cpp PmergeMe.cpp 
+SRCS = main.cpp PmergeMeVector.cpp PmergeMeDeque.cpp
 
 RM = rm -rf
 
