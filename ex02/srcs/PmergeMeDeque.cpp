@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:03:38 by omizin            #+#    #+#             */
-/*   Updated: 2026/03/31 17:03:42 by omizin           ###   ########.fr       */
+/*   Updated: 2026/04/03 11:25:21 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	fordJohnsonDeq(std::deque<int>& arr) {
 	for (auto& p : pairs)
 		main_chain.push_back(p.first);
 	fordJohnsonDeq(main_chain);
-	// printdeque(main_chain);
 
 	std::deque<int> pending;
 	for (int high : main_chain) {
@@ -81,7 +80,6 @@ void	fordJohnsonDeq(std::deque<int>& arr) {
 			}
 		}
 	}
-	// printdeque(pending);
 
 	static const size_t jacobsthal[] = {
 		1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845,

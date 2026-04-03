@@ -6,7 +6,7 @@
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:05:59 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/16 14:43:39 by omizin           ###   ########.fr       */
+/*   Updated: 2026/04/03 11:25:41 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,5 @@ int	main(int argc, char **argv){
 	time_end = std::chrono::high_resolution_clock::now();
 	duration = time_end - time_start;
 	std::cout << MAGENTA"Sorted deque in\t\t" << duration.count() << " ms" RESET << std::endl;
-	std::cout << "Moves: " << comparison_count(true) << std::endl;
 	return 0;
 }

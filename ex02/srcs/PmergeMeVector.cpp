@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*   PmergeMeVector.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omizin <omizin@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:05:51 by omizin            #+#    #+#             */
-/*   Updated: 2026/01/16 16:52:11 by omizin           ###   ########.fr       */
+/*   Updated: 2026/04/03 11:25:31 by omizin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void fordJohnsonVec(std::vector<int>& arr) {
 	for (auto& p : pairs)
 		main_chain.push_back(p.first);
 	fordJohnsonVec(main_chain);
-	// printVector(main_chain);
 
 	std::vector<int> pending;
 	for (int high : main_chain) {
@@ -88,7 +87,6 @@ void fordJohnsonVec(std::vector<int>& arr) {
 			}
 		}
 	}
-	// printVector(pending);
 
 	static const size_t jacobsthal[] = {
 		1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845,
